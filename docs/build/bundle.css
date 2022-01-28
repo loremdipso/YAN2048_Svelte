@@ -1,0 +1,148 @@
+html, body, main {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+main.svelte-1eogsiq {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fade-in.svelte-1eogsiq {
+  animation: 1s ease-out 0s 1 svelte-1eogsiq-FadeIn;
+}
+
+@keyframes svelte-1eogsiq-FadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.github-corner.svelte-1rr76ng:hover .octo-arm.svelte-1rr76ng {
+  animation: svelte-1rr76ng-octocat-wave 560ms ease-in-out;
+}
+
+@keyframes svelte-1rr76ng-octocat-wave {
+  0%, 100% {
+    transform: rotate(0);
+  }
+  20%, 60% {
+    transform: rotate(-25deg);
+  }
+  40%, 80% {
+    transform: rotate(10deg);
+  }
+}
+@media (max-width: 500px) {
+  .github-corner.svelte-1rr76ng:hover .octo-arm.svelte-1rr76ng {
+    animation: none;
+  }
+
+  .github-corner.svelte-1rr76ng .octo-arm.svelte-1rr76ng {
+    animation: svelte-1rr76ng-octocat-wave 560ms ease-in-out;
+  }
+}
+svg.svelte-1rr76ng.svelte-1rr76ng {
+  z-index: 1000;
+  color: #fff;
+  position: absolute;
+  border: 0;
+}
+
+.topRight.svelte-1rr76ng.svelte-1rr76ng {
+  top: 0;
+  right: 0;
+}
+
+.topLeft.svelte-1rr76ng.svelte-1rr76ng {
+  top: 0;
+  left: 0;
+  transform: rotate(270deg);
+}
+
+.bottomRight.svelte-1rr76ng.svelte-1rr76ng {
+  bottom: 0;
+  right: 0;
+  transform: rotate(90deg);
+}
+
+.bottomLeft.svelte-1rr76ng.svelte-1rr76ng {
+  bottom: 0;
+  left: 0;
+  transform: rotate(180deg);
+}
+
+.small.svelte-1rr76ng.svelte-1rr76ng {
+  width: 64px;
+  height: 64px;
+}
+
+.board.svelte-1d0nu9w {
+  width: min(100vw, 100vh);
+  height: min(100vw, 100vh);
+  display: flex;
+  flex-direction: column;
+}
+
+.center-region.svelte-1d0nu9w {
+  display: flex;
+  flex-grow: 1;
+}
+
+.cells.svelte-1d0nu9w {
+  flex-grow: 1;
+  background-color: #28528f;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+  padding: 10px;
+  gap: 10px;
+}
+
+div.svelte-1men00k {
+  cursor: pointer;
+  display: flex;
+  background-color: black;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+.container.svelte-1j11uma.svelte-1j11uma {
+  background-color: #111;
+  width: 100%;
+  height: 100%;
+  color: #fff;
+  font-weight: 700;
+  font-size: 7vmin;
+  display: flex;
+}
+
+.container.svelte-1j11uma.svelte-1j11uma:first-child {
+  grid-row: 1/1;
+  grid-column: 1/1;
+}
+
+.container.svelte-1j11uma .cell.svelte-1j11uma {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container.svelte-1j11uma .empty.svelte-1j11uma {
+  background-color: black;
+}
+
+.reverse.svelte-1bygq4a {
+  transform: rotate(180deg);
+}
+
+.tip.svelte-1bygq4a {
+  transform: rotate(90deg);
+}
