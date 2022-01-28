@@ -2185,7 +2185,7 @@ var app = (function () {
 
     	githubcorner = new GithubCorner({
     			props: {
-    				href: "https://github.com/loremdipso/2048_Svelte"
+    				href: "https://github.com/loremdipso/YAN2048_Svelte"
     			},
     			$$inline: true
     		});
@@ -2212,7 +2212,7 @@ var app = (function () {
     			attr_dev(link2, "href", "https://fonts.googleapis.com/css?family=Roboto+Mono");
     			add_location(link2, file, 16, 1, 411);
     			attr_dev(main, "class", "fade-in svelte-1eogsiq");
-    			add_location(main, file, 24, 0, 584);
+    			add_location(main, file, 24, 0, 587);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");

@@ -21,7 +21,7 @@
 	/>
 </svelte:head>
 
-<GithubCorner href="https://github.com/loremdipso/2048_Svelte" />
+<GithubCorner href="https://github.com/loremdipso/YAN2048_Svelte" />
 
 <main class="fade-in">
 	<Game />
