@@ -4,7 +4,7 @@
 
 	import GameButton from "./GameButton.svelte";
 	import Cell from "./Cell.svelte";
-	import type { ICell } from "../helpers";
+	import type { ICell } from "../behavior/interfaces";
 
 	export let cells: ICell[];
 </script>

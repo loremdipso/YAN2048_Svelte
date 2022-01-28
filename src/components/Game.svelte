@@ -1,28 +1,38 @@
 <script lang="ts">
-	import {
-		generateCells,
-		getRandomElement,
-		getRandomStartingValue,
-		ICell,
-	} from "../helpers";
+	import { getRandomElement } from "../common/utils";
+	import type { IAdjacentCellFn, ICell } from "../behavior/interfaces";
+	import { generateCells, getRandomStartingValue } from "../behavior/helpers";
 	import Board from "./Board.svelte";
+	import {
+		getNextColumn,
+		getNextRow,
+		getPreviousColumn,
+		getPreviousRow,
+		NUM_COLS,
+		NUM_ROWS,
+	} from "../behavior/logic";
 
-	export const NUM_ROWS = 4;
-	export const NUM_COLS = 4;
-
-	let cells = generateCells(NUM_COLS * NUM_ROWS, 3);
+	let cells: ICell[] = [];
 	let score = 0;
 	let isGameOver = false;
 
-	interface IAdjacentCellFn {
-		(cells: ICell[], index: number): ICell | undefined;
+	function restart() {
+		cells = generateCells(NUM_COLS * NUM_ROWS, 3);
+		score = 0;
+		isGameOver = false;
 	}
+
+	restart();
 
 	function handleKeydown(event) {
 		const key = event.key;
 		const keyCode = event.keyCode;
+		console.log({ key, keyCode });
 
-		switch (event.key) {
+		switch (key) {
+			case "r":
+				restart();
+				break;
 			case "ArrowUp":
 				moveUp();
 				break;
@@ -102,38 +112,6 @@
 			moveRight(false) ||
 			moveLeft(false)
 		);
-	}
-
-	function getNextRow(cells: ICell[], index: number): ICell | undefined {
-		return getCellAt(cells, index + NUM_COLS);
-	}
-
-	function getPreviousRow(cells: ICell[], index: number): ICell | undefined {
-		return getCellAt(cells, index - NUM_COLS);
-	}
-
-	function getNextColumn(cells: ICell[], index: number): ICell | undefined {
-		if ((index + 1) % NUM_COLS === 0) {
-			// far right
-			return null;
-		}
-		return getCellAt(cells, index + 1);
-	}
-
-	function getPreviousColumn(
-		cells: ICell[],
-		index: number
-	): ICell | undefined {
-		if (index % NUM_COLS === 0) {
-			// far left
-			return null;
-		}
-		return getCellAt(cells, index - 1);
-	}
-
-	function getCellAt(cells: ICell[], index: number): ICell | undefined {
-		let cell = cells[index];
-		return cell;
 	}
 
 	function moveUp(commit: boolean = true): boolean {

@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { valueToColor } from "../helpers";
-	import type { ICell } from "../helpers";
+	import type { ICell } from "../behavior/interfaces";
+	import { valueToColor } from "../behavior/helpers";
 
 	export let cell: ICell;
 	$: color = valueToColor(cell.value);

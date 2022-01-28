@@ -6,3 +6,11 @@ export function shuffleArray<T>(array: T[]): T[] {
 	}
 	return array;
 }
+
+export function getRandomElement<T>(arr: T[]): T {
+	return arr[getRandomInt(0, arr.length) % arr.length];
+}
+
+export function getRandomInt(min: number, maxExclusive: number): number {
+	return min + Math.floor(Math.random() * maxExclusive);
+}

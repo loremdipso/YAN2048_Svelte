@@ -1,11 +1,5 @@
-import { shuffleArray } from "./common/utils";
-
-export interface ICell {
-	id: number;
-	value: number;
-	shouldAppear?: boolean;
-	wasMerged?: boolean;
-}
+import { getRandomElement, shuffleArray } from "../common/utils";
+import type { ICell } from "./interfaces";
 
 const newCellValues = [1, 2, 4];
 
@@ -40,25 +34,12 @@ export function getRandomStartingValue(): number {
 	return getRandomElement(newCellValues);
 }
 
-export function getRandomElement<T>(arr: T[]): T {
-	return arr[getRandomInt(0, arr.length) % arr.length];
-}
-
-function getRandomInt(min: number, maxExclusive: number): number {
-	return min + Math.floor(Math.random() * maxExclusive);
-}
-
 export const getCellId = (() => {
 	let id = 0;
 	return () => {
 		return id++;
 	};
 })();
-
-export interface ICell {
-	id: number;
-	value: number;
-}
 
 const COLORS = [
 	"#79867c",
