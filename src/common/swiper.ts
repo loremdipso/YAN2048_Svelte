@@ -63,12 +63,14 @@ export class Swiper {
 		this.addEventListener('touchstart', e => {
 			this.touchStartX = e.changedTouches[0].screenX;
 			this.touchStartY = e.changedTouches[0].screenY;
+			e.preventDefault();
 		});
 
 		this.addEventListener('touchend', e => {
 			this.touchEndX = e.changedTouches[0].screenX;
 			this.touchEndY = e.changedTouches[0].screenY;
-			this.handleGesture()
+			this.handleGesture();
+			e.preventDefault();
 		});
 	}
 

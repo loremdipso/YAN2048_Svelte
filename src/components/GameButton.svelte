@@ -6,12 +6,19 @@
 	export let icon: string;
 	export let title: string = "";
 	export let grow: boolean = false;
+	export let backgroundColor: string = "black";
+	export let color: string = "white";
 
 	$: classes = grow ? "flex-grow" : "";
 </script>
 
-<div class={classes} on:click={() => dispatch("click")} {title}>
-	<Icon>{icon}</Icon>
+<div
+	class={classes}
+	style="background-color: {backgroundColor}"
+	on:click={() => dispatch("click")}
+	{title}
+>
+	<Icon {color}>{icon}</Icon>
 </div>
 
 <style>

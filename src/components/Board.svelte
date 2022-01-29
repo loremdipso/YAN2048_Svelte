@@ -65,12 +65,16 @@
 		<GameButton
 			icon="info"
 			title="Show info"
+			color="black"
+			backgroundColor="white"
 			on:click={() => dispatch("showInfo")}
 		/>
 		<GameButton grow icon="expand_less" on:click={() => dispatch("up")} />
 		<GameButton
 			icon="refresh"
 			title="Restart"
+			color="black"
+			backgroundColor="white"
 			on:click={() => dispatch("restart")}
 		/>
 	</div>
@@ -87,12 +91,16 @@
 		<GameButton
 			icon="remove"
 			title="Shrink board"
+			color="black"
+			backgroundColor="white"
 			on:click={() => dispatch("shrink")}
 		/>
 		<GameButton grow icon="expand_more" on:click={() => dispatch("down")} />
 		<GameButton
 			icon="add"
 			title="Grow board"
+			color="black"
+			backgroundColor="white"
 			on:click={() => dispatch("grow")}
 		/>
 	</div>
