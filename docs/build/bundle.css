@@ -81,26 +81,22 @@ svg.svelte-1fmpe6o.svelte-1fmpe6o {
   height: 64px;
 }
 
-.board.svelte-6g9tug {
+.board.svelte-k7tdiz {
   width: min(100vw, 100vh);
   height: min(100vw, 100vh);
   display: flex;
   flex-direction: column;
 }
 
-.center-region.svelte-6g9tug {
+.center-region.svelte-k7tdiz {
   display: flex;
   flex-grow: 1;
 }
 
-.cells.svelte-6g9tug {
+.cells.svelte-k7tdiz {
   flex-grow: 1;
   background-color: #28528f;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
-  grid-template-rows: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
-  padding: 10px;
-  gap: 10px;
 }
 
 div.svelte-w9lwo {
@@ -113,29 +109,76 @@ div.svelte-w9lwo {
   padding: 0.5rem;
 }
 
-.container.svelte-1j11uma.svelte-1j11uma {
+.dialog-content.svelte-325t5y {
+  max-height: 80vh;
+  max-width: 80vw;
+  overflow: auto;
+}
+
+.dialog-content.small.svelte-325t5y {
+  max-width: 30rem;
+}
+
+.dialog-content.svelte-325t5y > p {
+  padding-bottom: 0.5rem;
+}
+
+.container.svelte-1cfxuw3.svelte-1cfxuw3 {
   background-color: #111;
   width: 100%;
   height: 100%;
   color: #fff;
   font-weight: 700;
-  font-size: 7vmin;
   display: flex;
 }
 
-.container.svelte-1j11uma.svelte-1j11uma:first-child {
+.container.svelte-1cfxuw3.svelte-1cfxuw3:first-child {
   grid-row: 1/1;
   grid-column: 1/1;
 }
 
-.container.svelte-1j11uma .cell.svelte-1j11uma {
+.container.svelte-1cfxuw3 .cell.svelte-1cfxuw3 {
   flex-grow: 1;
   display: flex;
   align-items: center;
   justify-content: center;
+  user-select: none;
 }
 
-.container.svelte-1j11uma .empty.svelte-1j11uma {
+.container.svelte-1cfxuw3 .cell.tile-new.svelte-1cfxuw3 {
+  animation: svelte-1cfxuw3-appear 200ms;
+}
+
+.container.svelte-1cfxuw3 .cell.tile-merged.svelte-1cfxuw3 {
+  animation: svelte-1cfxuw3-appear 200ms;
+}
+
+.container.svelte-1cfxuw3 .cell.four-digits.svelte-1cfxuw3 {
+  font-size: 5vmin;
+}
+
+@keyframes svelte-1cfxuw3-appear {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes svelte-1cfxuw3-pop {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.container.svelte-1cfxuw3 .empty.svelte-1cfxuw3 {
   background-color: black;
 }
 

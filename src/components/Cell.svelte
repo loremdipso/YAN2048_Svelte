@@ -3,12 +3,38 @@
 	import { valueToColor } from "../behavior/helpers";
 
 	export let cell: ICell;
+	export let cellSize: number;
+
 	$: color = valueToColor(cell.value);
+
+	let classes;
+	$: {
+		classes = "cell";
+		if (cell.shouldAppear) {
+			classes = classes += " tile-new";
+		}
+		if (cell.wasMerged) {
+			classes += " tile-merged";
+		}
+		if (cell.value >= 1000 && cellSize > 5) {
+			classes += " four-digits";
+		}
+		classes = classes;
+	}
+
+	let styles: string;
+	$: {
+		let tempStyles = `font-size: ${cellSize}vmin;`;
+		tempStyles += `background-color: ${color};`;
+		styles = tempStyles;
+	}
 </script>
 
 <div class="container">
 	{#if cell.value > 0}
-		<div class="cell" style="background-color: {color}">{cell.value}</div>
+		<div class={classes} style={styles}>
+			{cell.value}
+		</div>
 	{:else}
 		<div class="cell empty" />
 	{/if}
@@ -21,7 +47,6 @@
 		height: 100%;
 		color: #fff;
 		font-weight: 700;
-		font-size: 7vmin;
 		display: flex;
 
 		&:first-child {
@@ -35,6 +60,42 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
+			user-select: none;
+
+			&.tile-new {
+				animation: appear 200ms;
+			}
+
+			&.tile-merged {
+				animation: appear 200ms;
+			}
+
+			&.four-digits {
+				font-size: 5vmin;
+			}
+
+			@keyframes appear {
+				0% {
+					opacity: 0;
+					transform: scale(0);
+				}
+				100% {
+					opacity: 1;
+					transform: scale(1);
+				}
+			}
+
+			@keyframes pop {
+				0% {
+					transform: scale(0);
+				}
+				50% {
+					transform: scale(1.2);
+				}
+				100% {
+					transform: scale(1);
+				}
+			}
 		}
 
 		.empty {

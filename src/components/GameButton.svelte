@@ -3,11 +3,14 @@
 	const dispatch = createEventDispatcher();
 
 	import Icon from "smelte/src/components/Icon";
-
 	export let icon: string;
+	export let title: string = "";
+	export let grow: boolean = false;
+
+	$: classes = grow ? "flex-grow" : "";
 </script>
 
-<div on:click={() => dispatch("click")}>
+<div class={classes} on:click={() => dispatch("click")} {title}>
 	<Icon>{icon}</Icon>
 </div>
 
