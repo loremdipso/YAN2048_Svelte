@@ -6,7 +6,10 @@ export interface ICell {
 	wasMerged?: boolean;
 }
 
-
 export interface IAdjacentCellFn {
 	(cells: ICell[], index: number): ICell | undefined;
+}
+
+export interface IIteratorFn {
+	(cells: ICell[]): Iterable<number>
 }

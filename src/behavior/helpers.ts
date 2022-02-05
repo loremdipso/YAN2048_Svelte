@@ -1,7 +1,7 @@
 import { getRandomElement, shuffleArray } from "../common/utils";
 import type { ICell } from "./interfaces";
 
-const newCellValues = [1, 2, 4];
+const newCellValues = [1, 2];
 
 export function generateCells(totalCells: number, nonEmptyCells): ICell[] {
 	let cells: ICell[] = [];

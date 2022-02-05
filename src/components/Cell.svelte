@@ -63,7 +63,7 @@
 			user-select: none;
 
 			&.tile-new {
-				animation: appear 200ms;
+				animation: pop 300ms;
 			}
 
 			&.tile-merged {
@@ -90,6 +90,9 @@
 					transform: scale(0);
 				}
 				50% {
+					transform: scale(0);
+				}
+				75% {
 					transform: scale(1.2);
 				}
 				100% {

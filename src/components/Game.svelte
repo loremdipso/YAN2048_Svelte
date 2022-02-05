@@ -1,10 +1,15 @@
 <script lang="ts">
 	import { getRandomElement } from "../common/utils";
-	import type { IAdjacentCellFn, ICell } from "../behavior/interfaces";
+	import type {
+		IAdjacentCellFn,
+		ICell,
+		IIteratorFn,
+	} from "../behavior/interfaces";
 	import { generateCells, getRandomStartingValue } from "../behavior/helpers";
 	import Board from "./Board.svelte";
 	import InfoDialog from "./InfoDialog.svelte";
 	import GameOverDialog from "./GameOverDialog.svelte";
+	import { tick } from "svelte";
 
 	let cells: ICell[] = [];
 	let score = 0;
@@ -73,16 +78,16 @@
 				restart();
 				break;
 			case "ArrowUp":
-				moveUp();
+				clearAndMove(moveUp);
 				break;
 			case "ArrowDown":
-				moveDown();
+				clearAndMove(moveDown);
 				break;
 			case "ArrowLeft":
-				moveLeft();
+				clearAndMove(moveLeft);
 				break;
 			case "ArrowRight":
-				moveRight();
+				clearAndMove(moveRight);
 				break;
 		}
 	}
@@ -117,38 +122,61 @@
 		);
 	}
 
+	async function clearAndMove<T>(callback: () => any) {
+		// NOTE: ideally we'd use `tick()` here, but sometimes animation events get lost,
+		// so we're stuck with this hacky setTimeout thing
+		clearStyles();
+		setTimeout(() => {
+			callback();
+		});
+	}
+
+	function clearStyles() {
+		for (let cell of cells) {
+			cell.wasMerged = false;
+			cell.shouldAppear = false;
+		}
+		cells = cells;
+	}
+
 	function moveUp(commit: boolean = true): boolean {
-		return doMove(getPreviousRow, getNextRow, commit);
+		return doMove(getPreviousRow, getNextRow, forwardIterator, commit);
 	}
 
 	function moveDown(commit: boolean = true): boolean {
-		return doMove(getNextRow, getPreviousRow, commit);
+		return doMove(getNextRow, getPreviousRow, backwardIterator, commit);
 	}
 
 	function moveLeft(commit: boolean = true): boolean {
-		return doMove(getPreviousColumn, getNextColumn, commit);
+		return doMove(
+			getPreviousColumn,
+			getNextColumn,
+			forwardIterator,
+			commit
+		);
 	}
 
 	function moveRight(commit: boolean = true): boolean {
-		return doMove(getNextColumn, getPreviousColumn, commit);
+		return doMove(
+			getNextColumn,
+			getPreviousColumn,
+			backwardIterator,
+			commit
+		);
 	}
 
 	function doMove(
 		nextCellFunction: IAdjacentCellFn,
 		previousCellFunction: IAdjacentCellFn,
+		iterator: IIteratorFn,
 		commit: boolean
 	): boolean {
 		let didMove = false;
 
-		if (commit) {
-			for (let cell of cells) {
-				cell.wasMerged = false;
-			}
-		}
-
 		// slide
 		didMove =
-			doSlide(nextCellFunction, previousCellFunction, commit) || didMove;
+			doSlide(nextCellFunction, previousCellFunction, iterator, commit) ||
+			didMove;
 
 		if (didMove && !commit) {
 			return didMove;
@@ -156,9 +184,10 @@
 
 		// merge
 		let didMerge = false;
-		for (let i = 0; i < cells.length; i++) {
+		for (let i of iterator(cells)) {
 			let cell = cells[i];
-			if (cell.value !== 0 && !cell.wasMerged) {
+			// if (cell.value !== 0 && !cell.wasMerged) {
+			if (cell.value !== 0) {
 				let previousCell = previousCellFunction(cells, i);
 				if (previousCell && previousCell.value === cell.value) {
 					if (commit) {
@@ -178,8 +207,12 @@
 		// slide again, if necessary
 		if (didMerge) {
 			didMove =
-				doSlide(nextCellFunction, previousCellFunction, commit) ||
-				didMove;
+				doSlide(
+					nextCellFunction,
+					previousCellFunction,
+					iterator,
+					commit
+				) || didMove;
 		}
 
 		if (!commit) {
@@ -188,25 +221,24 @@
 
 		if (didMove) {
 			addRandomCell();
+			cells = cells;
 		} else if (!couldMove()) {
 			isGameOver = true;
 		}
 
-		if (didMove) {
-			cells = cells;
-		}
 		return didMove;
 	}
 
 	function doSlide(
 		nextCellFunction: IAdjacentCellFn,
 		previousCellFunction: IAdjacentCellFn,
+		iterator: IIteratorFn,
 		commit: boolean
 	): boolean {
 		let didMove = false;
 		while (true) {
 			let didSlide = false;
-			for (let i = 0; i < cells.length; i++) {
+			for (const i of iterator(cells)) {
 				let cell = cells[i];
 				if (cell.value !== 0) {
 					let nextCell = nextCellFunction(cells, i);
@@ -215,6 +247,8 @@
 							didSlide = true;
 							didMove = true;
 							nextCell.value = cell.value;
+							nextCell.wasMerged = cell.wasMerged;
+							cell.wasMerged = false;
 							cell.value = 0;
 						} else {
 							return true;
@@ -229,6 +263,18 @@
 		}
 
 		return didMove;
+	}
+
+	export function* forwardIterator(cells: ICell[]) {
+		for (let i = 0; i < cells.length; i++) {
+			yield i;
+		}
+	}
+
+	export function* backwardIterator(cells: ICell[]) {
+		for (let i = cells.length - 1; i >= 0; i--) {
+			yield i;
+		}
 	}
 
 	export function getNextRow(
@@ -282,10 +328,10 @@
 	bind:cells
 	bind:numCols
 	bind:numRows
-	on:up={() => moveUp()}
-	on:down={() => moveDown()}
-	on:left={() => moveLeft()}
-	on:right={() => moveRight()}
+	on:up={() => clearAndMove(moveUp)}
+	on:down={() => clearAndMove(moveDown)}
+	on:left={() => clearAndMove(moveLeft)}
+	on:right={() => clearAndMove(moveRight)}
 	on:restart={() => restart()}
 	on:shrink={() => shrink()}
 	on:grow={() => grow()}
