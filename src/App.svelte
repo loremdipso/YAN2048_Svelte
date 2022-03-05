@@ -1,5 +1,6 @@
 <script lang="ts">
 	import GithubCorner from "./common/GithubCorner.svelte";
+	import Installer from "./common/Installer.svelte";
 	import Game from "./components/Game.svelte";
 </script>
 
@@ -25,6 +26,7 @@
 
 <main class="fade-in">
 	<Game />
+	<Installer />
 </main>
 
 <style lang="scss">
